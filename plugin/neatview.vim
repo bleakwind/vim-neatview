@@ -536,9 +536,9 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
     endfunction
 
     " --------------------------------------------------
-    " neatview#StructCheckfg
+    " neatview#StructCalcfg
     " --------------------------------------------------
-    function! neatview#StructCheckfg(hex) abort
+    function! neatview#StructCalcfg(hex) abort
         let l:r = str2nr(a:hex[1:2], 16)
         let l:g = str2nr(a:hex[3:4], 16)
         let l:b = str2nr(a:hex[5:6], 16)
@@ -624,7 +624,7 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
         let l:cbg = !empty(synIDattr(hlID('StatusLine'), 'bg', 'cterm')) ? synIDattr(hlID('StatusLine'), 'bg', 'cterm') : 'Black'
         let l:gfg = !empty(synIDattr(hlID('StatusLine'), 'fg', 'gui'))   ? synIDattr(hlID('StatusLine'), 'fg', 'gui')   : '#59647A'
         let l:gbg = !empty(synIDattr(hlID('StatusLine'), 'bg', 'gui'))   ? synIDattr(hlID('StatusLine'), 'bg', 'gui')   : '#171C22'
-        if neatview#StructCheckfg(l:gbg) == "White"
+        if neatview#StructCalcfg(l:gbg) == "White"
             let l:cfg_0 = l:cfg         | let l:cbg_0 = l:cbg           | let l:gfg_0 = l:gfg           | let l:gbg_0 = l:gbg
             let l:cfg_1 = "Green"       | let l:cbg_1 = "DarkGreen"     | let l:gfg_1 = "#A3D97D"       | let l:gbg_1 = "#467623"
             let l:cfg_2 = "LightGray"   | let l:cbg_2 = l:cbg           | let l:gfg_2 = "#59647A"       | let l:gbg_2 = l:gbg
