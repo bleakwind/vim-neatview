@@ -680,7 +680,7 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
     augroup NeatviewCmdStruct
         autocmd!
         autocmd BufEnter,BufWritePost * call neatview#StructInit()
-        "autocmd QuickFixCmdPost [^l]* call neatview#StructOutput('open')
+        autocmd QuickFixCmdPost [^l]* if !empty(getqflist()) | call neatview#StructOperate('quickfix', 'open') | call neatview#StructOutput('open') | endif
         autocmd VimResized * call neatview#StructResize()
         autocmd ColorScheme * call neatview#StructHlcolor()
         autocmd VimEnter * call neatview#StructHlcolor()
