@@ -331,9 +331,13 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
             endfor
             " handle state
             if a:ope == 'open'
-                silent exe g:neatview_struct_setopen[a:name]
+                if l:setshow[a:name] != 1
+                    silent exe g:neatview_struct_setopen[a:name]
+                endif
             elseif a:ope == 'close'
-                silent exe g:neatview_struct_setclse[a:name]
+                if l:setshow[a:name] == 1
+                    silent exe g:neatview_struct_setclse[a:name]
+                endif
             endif
             " handle restore
             for [kc, vc] in items(g:neatview_struct_setname)
