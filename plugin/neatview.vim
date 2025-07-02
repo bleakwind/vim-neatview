@@ -85,13 +85,13 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
         for [kc, vc] in items(g:neatview_struct_setname)
             let g:neatview_struct_setshow[kc] = 0
             for il in l:winlist
-                let l:bufnr = il.bufnr
-                let l:winnr = il.winnr
-                let l:winid = il.winid
-                let l:filetype = getbufvar(il.bufnr, '&filetype')
+                let l:bufnbr = il.bufnr
+                let l:winnbr = il.winnr
+                let l:winidn = il.winid
+                let l:filtype = getbufvar(il.bufnr, '&filetype')
                 let l:buftype = getbufvar(il.bufnr, '&buftype')
                 let l:bufname = bufname(il.bufnr)
-                if l:filetype == g:neatview_struct_settype[kc]
+                if l:filtype == g:neatview_struct_settype[kc]
                     let g:neatview_struct_setshow[kc] = 1
                 endif
             endfor
@@ -102,16 +102,16 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
         for [kc, vc] in items(g:neatview_struct_setname)
             if !empty(g:neatview_struct_setbuff[kc])
                 for il in l:winlist
-                    let l:bufnr = il.bufnr
-                    let l:winnr = il.winnr
-                    let l:winid = il.winid
-                    let l:filetype = getbufvar(il.bufnr, '&filetype')
+                    let l:bufnbr = il.bufnr
+                    let l:winnbr = il.winnr
+                    let l:winidn = il.winid
+                    let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
                     if l:bufname == g:neatview_struct_setbuff[kc]
-                        call win_execute(l:winid, 'set filetype='.g:neatview_struct_settype[kc])
+                        call win_execute(l:winidn, 'set filetype='.g:neatview_struct_settype[kc])
                     elseif l:buftype == g:neatview_struct_setbuff[kc]
-                        call win_execute(l:winid, 'set filetype='.g:neatview_struct_settype[kc])
+                        call win_execute(l:winidn, 'set filetype='.g:neatview_struct_settype[kc])
                     endif
                 endfor
             endif
@@ -120,28 +120,28 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
         let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") == ""')
         let l:winlist = getwininfo()
         for il in l:winlist
-            let l:bufnr = il.bufnr
-            let l:winnr = il.winnr
-            let l:winid = il.winid
-            let l:filetype = getbufvar(il.bufnr, '&filetype')
+            let l:bufnbr = il.bufnr
+            let l:winnbr = il.winnr
+            let l:winidn = il.winid
+            let l:filtype = getbufvar(il.bufnr, '&filetype')
             let l:buftype = getbufvar(il.bufnr, '&buftype')
             let l:bufname = bufname(il.bufnr)
             let l:searchkey = ''
             for [kc, vc] in items(g:neatview_struct_setname)
-                if g:neatview_struct_settype[kc] == l:filetype
+                if g:neatview_struct_settype[kc] == l:filtype
                     let l:searchkey = kc
                     break
                 endif
             endfor
             if !empty(l:searchkey)
                 if g:neatview_struct_setstat[l:searchkey] == 1
-                    call win_execute(l:winid, 'call neatview#StructStatusline(g:neatview_struct_setpart[l:searchkey])')
+                    call win_execute(l:winidn, 'call neatview#StructStatusline(g:neatview_struct_setpart[l:searchkey])')
                 endif
-            elseif index(l:buflist, l:bufnr) != -1
-                let g:neatview_struct_mainwin = l:winid
-                call win_execute(l:winid, 'call neatview#StructStatusline("main")')
+            elseif index(l:buflist, l:bufnbr) != -1
+                let g:neatview_struct_mainwin = l:winidn
+                call win_execute(l:winidn, 'call neatview#StructStatusline("main")')
             else
-                call win_execute(l:winid, 'call neatview#StructStatusline("other")')
+                call win_execute(l:winidn, 'call neatview#StructStatusline("other")')
             endif
         endfor
     endfunction
@@ -152,23 +152,23 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
     function neatview#StructResize()
         call neatview#StructInit()
         if g:neatview_struct_mainwin > 0
-            let l:winid_original = bufwinid('%')
+            let l:winidn_original = bufwinid('%')
             " check layout
             let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") == ""')
             let l:winlist = getwininfo()
             for [kc, vc] in items(g:neatview_struct_setname)
                 for il in l:winlist
-                    let l:bufnr = il.bufnr
-                    let l:winnr = il.winnr
-                    let l:winid = il.winid
-                    let l:filetype = getbufvar(il.bufnr, '&filetype')
+                    let l:bufnbr = il.bufnr
+                    let l:winnbr = il.winnr
+                    let l:winidn = il.winid
+                    let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filetype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'info'
-                        call win_execute(l:winid, 'silent wincmd L')
+                    if l:filtype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'info'
+                        call win_execute(l:winidn, 'silent wincmd L')
                         if g:neatview_struct_setnohi[kc] == 1
-                            call win_execute(l:winid, 'setlocal nocursorline')
-                            call win_execute(l:winid, 'setlocal nocursorcolumn')
+                            call win_execute(l:winidn, 'setlocal nocursorline')
+                            call win_execute(l:winidn, 'setlocal nocursorcolumn')
                         endif
                         break
                     endif
@@ -176,17 +176,17 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
             endfor
             for [kc, vc] in items(g:neatview_struct_setname)
                 for il in l:winlist
-                    let l:bufnr = il.bufnr
-                    let l:winnr = il.winnr
-                    let l:winid = il.winid
-                    let l:filetype = getbufvar(il.bufnr, '&filetype')
+                    let l:bufnbr = il.bufnr
+                    let l:winnbr = il.winnr
+                    let l:winidn = il.winid
+                    let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filetype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'output'
-                        call win_execute(l:winid, 'silent wincmd J')
+                    if l:filtype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'output'
+                        call win_execute(l:winidn, 'silent wincmd J')
                         if g:neatview_struct_setnohi[kc] == 1
-                            call win_execute(l:winid, 'setlocal nocursorline')
-                            call win_execute(l:winid, 'setlocal nocursorcolumn')
+                            call win_execute(l:winidn, 'setlocal nocursorline')
+                            call win_execute(l:winidn, 'setlocal nocursorcolumn')
                         endif
                         break
                     endif
@@ -194,17 +194,17 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
             endfor
             for [kc, vc] in items(g:neatview_struct_setname)
                 for il in l:winlist
-                    let l:bufnr = il.bufnr
-                    let l:winnr = il.winnr
-                    let l:winid = il.winid
-                    let l:filetype = getbufvar(il.bufnr, '&filetype')
+                    let l:bufnbr = il.bufnr
+                    let l:winnbr = il.winnr
+                    let l:winidn = il.winid
+                    let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filetype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'tab'
-                        call win_execute(l:winid, 'silent wincmd K')
+                    if l:filtype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'tab'
+                        call win_execute(l:winidn, 'silent wincmd K')
                         if g:neatview_struct_setnohi[kc] == 1
-                            call win_execute(l:winid, 'setlocal nocursorline')
-                            call win_execute(l:winid, 'setlocal nocursorcolumn')
+                            call win_execute(l:winidn, 'setlocal nocursorline')
+                            call win_execute(l:winidn, 'setlocal nocursorcolumn')
                         endif
                         break
                     endif
@@ -212,17 +212,17 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
             endfor
             for [kc, vc] in items(g:neatview_struct_setname)
                 for il in l:winlist
-                    let l:bufnr = il.bufnr
-                    let l:winnr = il.winnr
-                    let l:winid = il.winid
-                    let l:filetype = getbufvar(il.bufnr, '&filetype')
+                    let l:bufnbr = il.bufnr
+                    let l:winnbr = il.winnr
+                    let l:winidn = il.winid
+                    let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filetype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'tree'
-                        call win_execute(l:winid, 'silent wincmd H')
+                    if l:filtype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'tree'
+                        call win_execute(l:winidn, 'silent wincmd H')
                         if g:neatview_struct_setnohi[kc] == 1
-                            call win_execute(l:winid, 'setlocal nocursorline')
-                            call win_execute(l:winid, 'setlocal nocursorcolumn')
+                            call win_execute(l:winidn, 'setlocal nocursorline')
+                            call win_execute(l:winidn, 'setlocal nocursorcolumn')
                         endif
                         break
                     endif
@@ -231,56 +231,56 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
             " check size
             for [kc, vc] in items(g:neatview_struct_setname)
                 for il in l:winlist
-                    let l:bufnr = il.bufnr
-                    let l:winnr = il.winnr
-                    let l:winid = il.winid
-                    let l:filetype = getbufvar(il.bufnr, '&filetype')
+                    let l:bufnbr = il.bufnr
+                    let l:winnbr = il.winnr
+                    let l:winidn = il.winid
+                    let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filetype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'info'
-                        call win_execute(l:winid, 'vertical resize '.g:neatview_struct_setsize[kc])
+                    if l:filtype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'info'
+                        call win_execute(l:winidn, 'vertical resize '.g:neatview_struct_setsize[kc])
                         break
                     endif
                 endfor
             endfor
             for [kc, vc] in items(g:neatview_struct_setname)
                 for il in l:winlist
-                    let l:bufnr = il.bufnr
-                    let l:winnr = il.winnr
-                    let l:winid = il.winid
-                    let l:filetype = getbufvar(il.bufnr, '&filetype')
+                    let l:bufnbr = il.bufnr
+                    let l:winnbr = il.winnr
+                    let l:winidn = il.winid
+                    let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filetype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'output'
-                        call win_execute(l:winid, 'resize '.g:neatview_struct_setsize[kc])
+                    if l:filtype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'output'
+                        call win_execute(l:winidn, 'resize '.g:neatview_struct_setsize[kc])
                         break
                     endif
                 endfor
             endfor
             for [kc, vc] in items(g:neatview_struct_setname)
                 for il in l:winlist
-                    let l:bufnr = il.bufnr
-                    let l:winnr = il.winnr
-                    let l:winid = il.winid
-                    let l:filetype = getbufvar(il.bufnr, '&filetype')
+                    let l:bufnbr = il.bufnr
+                    let l:winnbr = il.winnr
+                    let l:winidn = il.winid
+                    let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filetype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'tab'
-                        call win_execute(l:winid, 'resize '.g:neatview_struct_setsize[kc])
+                    if l:filtype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'tab'
+                        call win_execute(l:winidn, 'resize '.g:neatview_struct_setsize[kc])
                         break
                     endif
                 endfor
             endfor
             for [kc, vc] in items(g:neatview_struct_setname)
                 for il in l:winlist
-                    let l:bufnr = il.bufnr
-                    let l:winnr = il.winnr
-                    let l:winid = il.winid
-                    let l:filetype = getbufvar(il.bufnr, '&filetype')
+                    let l:bufnbr = il.bufnr
+                    let l:winnbr = il.winnr
+                    let l:winidn = il.winid
+                    let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filetype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'tree'
-                        call win_execute(l:winid, 'vertical resize '.g:neatview_struct_setsize[kc])
+                    if l:filtype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'tree'
+                        call win_execute(l:winidn, 'vertical resize '.g:neatview_struct_setsize[kc])
                         break
                     endif
                 endfor
@@ -288,21 +288,21 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
             " fix size
             for [kc, vc] in items(g:neatview_struct_setname)
                 for il in l:winlist
-                    let l:bufnr = il.bufnr
-                    let l:winnr = il.winnr
-                    let l:winid = il.winid
-                    let l:filetype = getbufvar(il.bufnr, '&filetype')
+                    let l:bufnbr = il.bufnr
+                    let l:winnbr = il.winnr
+                    let l:winidn = il.winid
+                    let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filetype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'info'
-                        call win_execute(l:winid, 'vertical resize '.g:neatview_struct_setsize[kc])
+                    if l:filtype == g:neatview_struct_settype[kc] && g:neatview_struct_setpart[kc] == 'info'
+                        call win_execute(l:winidn, 'vertical resize '.g:neatview_struct_setsize[kc])
                         break
                     endif
                 endfor
             endfor
             " back winid
-            if l:winid_original != bufwinid('%')
-                call win_gotoid(l:winid_original)
+            if l:winidn_original != bufwinid('%')
+                call win_gotoid(l:winidn_original)
             endif
         endif
     endfunction
@@ -313,7 +313,7 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
     function neatview#StructOperate(name, ope)
         call neatview#StructInit()
         if g:neatview_struct_mainwin > 0 && has_key(g:neatview_struct_setname, a:name)
-            let l:winid_original = bufwinid('%')
+            let l:winidn_original = bufwinid('%')
             " save state
             let l:setshow = {}
             for [kc, vc] in items(g:neatview_struct_setshow)
@@ -350,8 +350,8 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
             " resize struct
             call neatview#StructResize()
             " back winid
-            if l:winid_original != bufwinid('%')
-                call win_gotoid(l:winid_original)
+            if l:winidn_original != bufwinid('%')
+                call win_gotoid(l:winidn_original)
             endif
         endif
     endfunction
@@ -366,21 +366,21 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
         let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") == ""')
         let l:winlist = getwininfo()
         for il in l:winlist
-            let l:bufnr = il.bufnr
-            let l:winnr = il.winnr
-            let l:winid = il.winid
-            let l:filetype = getbufvar(il.bufnr, '&filetype')
+            let l:bufnbr = il.bufnr
+            let l:winnbr = il.winnr
+            let l:winidn = il.winid
+            let l:filtype = getbufvar(il.bufnr, '&filetype')
             let l:buftype = getbufvar(il.bufnr, '&buftype')
             let l:bufname = bufname(il.bufnr)
             let l:ifhave = 0
             for [kc, vc] in items(g:neatview_struct_setname)
-                if g:neatview_struct_settype[kc] == l:filetype
+                if g:neatview_struct_settype[kc] == l:filtype
                     let l:ifhave = 1
                     break
                 endif
             endfor
             if l:ifhave != 1 && !empty(l:buftype)
-                call win_execute(l:winid, 'close')
+                call win_execute(l:winidn, 'close')
             endif
         endfor
         " operate win
@@ -460,21 +460,21 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
         let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") == ""')
         let l:winlist = getwininfo()
         for il in l:winlist
-            let l:bufnr = il.bufnr
-            let l:winnr = il.winnr
-            let l:winid = il.winid
-            let l:filetype = getbufvar(il.bufnr, '&filetype')
+            let l:bufnbr = il.bufnr
+            let l:winnbr = il.winnr
+            let l:winidn = il.winid
+            let l:filtype = getbufvar(il.bufnr, '&filetype')
             let l:buftype = getbufvar(il.bufnr, '&buftype')
             let l:bufname = bufname(il.bufnr)
             let l:ifhave = 0
             for [kc, vc] in items(g:neatview_struct_setname)
-                if g:neatview_struct_settype[kc] == l:filetype
+                if g:neatview_struct_settype[kc] == l:filtype
                     let l:ifhave = 1
                     break
                 endif
             endfor
             if l:ifhave != 1 && !empty(l:buftype)
-                call win_execute(l:winid, 'close')
+                call win_execute(l:winidn, 'close')
             endif
         endfor
         " operate win
@@ -504,11 +504,11 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
     " neatview#StructStatusname
     " --------------------------------------------------
     function! neatview#StructStatusname(...)
-        let l:filetype = getbufvar(bufnr('%'), '&filetype')
+        let l:filtype = getbufvar(bufnr('%'), '&filetype')
         let l:buftype = getbufvar(bufnr('%'), '&buftype')
-        let l:staname = l:filetype
+        let l:staname = l:filtype
         for [kc, vc] in items(g:neatview_struct_setname)
-            if !empty(g:neatview_struct_settype[kc]) && !empty(l:buftype) && g:neatview_struct_settype[kc] == l:filetype
+            if !empty(g:neatview_struct_settype[kc]) && !empty(l:buftype) && g:neatview_struct_settype[kc] == l:filtype
                 let l:staname = g:neatview_struct_setname[kc]
                 break
             endif
@@ -668,13 +668,13 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
         let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") == ""')
         let l:winlist = getwininfo()
         for il in l:winlist
-            let l:bufnr = il.bufnr
-            let l:winnr = il.winnr
-            let l:winid = il.winid
-            let l:filetype = getbufvar(il.bufnr, '&filetype')
+            let l:bufnbr = il.bufnr
+            let l:winnbr = il.winnr
+            let l:winidn = il.winid
+            let l:filtype = getbufvar(il.bufnr, '&filetype')
             let l:buftype = getbufvar(il.bufnr, '&buftype')
             let l:bufname = bufname(il.bufnr)
-            echo printf("> %-8d > %-8d > %-8d > %-16s > %-16s > %-16s", l:bufnr, l:winnr, l:winid, l:filetype, l:buftype, l:bufname)
+            echo printf("> %-8d > %-8d > %-8d > %-16s > %-16s > %-16s", l:bufnbr, l:winnbr, l:winidn, l:filtype, l:buftype, l:bufname)
         endfor
     endfunction
 
