@@ -679,9 +679,9 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
     endfunction
 
     " --------------------------------------------------
-    " NeatviewStructCmd
+    " neatview_cmd_struct_bas
     " --------------------------------------------------
-    augroup NeatviewCmdStruct
+    augroup neatview_cmd_struct_bas
         autocmd!
         autocmd BufEnter,BufWritePost * call neatview#StructInit()
         autocmd QuickFixCmdPost [^l]* if !empty(getqflist()) | call neatview#StructOperate('quickfix', 'open') | call neatview#StructOutput('open') | endif
@@ -772,7 +772,7 @@ if exists('g:neatview_reopen_enabled') && g:neatview_reopen_enabled == 1
         if !isdirectory(g:neatview_reopen_setpath)
             call mkdir(g:neatview_reopen_setpath, 'p', 0777)
         endif
-        augroup NeatviewCmdReopenBldcmd
+        augroup neatview_cmd_reopen_sub
             autocmd!
             autocmd BufAdd,BufEnter * nested call neatview#ReopenBuild(str2nr(expand('<abuf>')))
             autocmd BufDelete * nested call neatview#ReopenClose(expand('<afile>:p'))
@@ -780,9 +780,9 @@ if exists('g:neatview_reopen_enabled') && g:neatview_reopen_enabled == 1
     endfunction
 
     " --------------------------------------------------
-    " NeatviewCmdReopen
+    " neatview_cmd_reopen_bas
     " --------------------------------------------------
-    augroup NeatviewCmdReopen
+    augroup neatview_cmd_reopen_bas
         autocmd!
         autocmd VimEnter * nested call neatview#ReopenBldcmd()
         autocmd VimEnter * nested call neatview#ReopenRestore()
