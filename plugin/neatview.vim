@@ -554,7 +554,7 @@ if exists('g:neatview_struct_enabled') && g:neatview_struct_enabled == 1
     " neatview#StructStatusline
     " --------------------------------------------------
     function! neatview#StructStatusline(...)
-        let l:stacon = exists('a:1') ? a:1 : ''
+        let l:stacon = a:0 > 0 ? a:1 : ''
         if (l:stacon == 'tree')
             setlocal  statusline=%#StatusLine_0#
             setlocal statusline+=%#StatusLine_0#\ [%{neatview#StructStatusname()}]\ %#StatusLine_0#
