@@ -52,8 +52,6 @@ let g:neatview_setsize[xxx]  = xx
 let g:neatview_setopen[xxx]  = ''
 " Commands to close specific components
 let g:neatview_setclse[xxx]  = ''
-" Disable cursor highlighting in window (1=disable, 0=enable)
-let g:neatview_setnohi[xxx] = xx
 " Show special status in statusline (1=show, 0=hide)
 let g:neatview_setstat[xxx] = xx
 " Current visibility state of components (1=visible, 0=hidden)
@@ -70,7 +68,6 @@ let g:neatview_setcoth                      = {}
 let g:neatview_setsize                      = {}
 let g:neatview_setopen                      = {}
 let g:neatview_setclse                      = {}
-let g:neatview_setnohi                      = {}
 let g:neatview_setstat                      = {}
 let g:neatview_setshow                      = {}
 
@@ -82,7 +79,6 @@ let g:neatview_setcoth['nerdtree']          = []
 let g:neatview_setsize['nerdtree']          = 30
 let g:neatview_setopen['nerdtree']          = 'NERDTree'
 let g:neatview_setclse['nerdtree']          = 'NERDTreeClose'
-let g:neatview_setnohi['nerdtree']          = 0
 let g:neatview_setstat['nerdtree']          = 0
 let g:neatview_setshow['nerdtree']          = 0
 
@@ -94,7 +90,6 @@ let g:neatview_setcoth['bufferlist']        = []
 let g:neatview_setsize['bufferlist']        = 1
 let g:neatview_setopen['bufferlist']        = 'BufferlistOpen'
 let g:neatview_setclse['bufferlist']        = 'BufferlistClose'
-let g:neatview_setnohi['bufferlist']        = 1
 let g:neatview_setstat['bufferlist']        = 1
 let g:neatview_setshow['bufferlist']        = 0
 
@@ -106,7 +101,6 @@ let g:neatview_setcoth['quickfix']          = []
 let g:neatview_setsize['quickfix']          = 10
 let g:neatview_setopen['quickfix']          = 'botright copen '.g:neatview_setsize['quickfix']
 let g:neatview_setclse['quickfix']          = 'cclose'
-let g:neatview_setnohi['quickfix']          = 0
 let g:neatview_setstat['quickfix']          = 1
 let g:neatview_setshow['quickfix']          = 0
 
@@ -118,7 +112,6 @@ let g:neatview_setcoth['viewmap']           = []
 let g:neatview_setsize['viewmap']           = 20
 let g:neatview_setopen['viewmap']           = 'ViewmapOpen'
 let g:neatview_setclse['viewmap']           = 'ViewmapClose'
-let g:neatview_setnohi['viewmap']           = 1
 let g:neatview_setstat['viewmap']           = 1
 let g:neatview_setshow['viewmap']           = 0
 ```

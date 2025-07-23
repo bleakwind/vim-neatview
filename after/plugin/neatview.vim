@@ -35,7 +35,6 @@ let g:neatview_setcoth      = get(g:, 'neatview_setcoth', {})
 let g:neatview_setsize      = get(g:, 'neatview_setsize', {})
 let g:neatview_setopen      = get(g:, 'neatview_setopen', {})
 let g:neatview_setclse      = get(g:, 'neatview_setclse', {})
-let g:neatview_setnohi      = get(g:, 'neatview_setnohi', {})
 let g:neatview_setstat      = get(g:, 'neatview_setstat', {})
 let g:neatview_setshow      = get(g:, 'neatview_setshow', {})
 
@@ -156,10 +155,6 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
                     let l:bufname = bufname(il.bufnr)
                     if l:filtype == g:neatview_settype[kc] && g:neatview_setpart[kc] == 'info'
                         call win_execute(l:winidn, 'silent wincmd L')
-                        if g:neatview_setnohi[kc] == 1
-                            call win_execute(l:winidn, 'setlocal nocursorline')
-                            call win_execute(l:winidn, 'setlocal nocursorcolumn')
-                        endif
                         break
                     endif
                 endfor
@@ -174,10 +169,6 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
                     let l:bufname = bufname(il.bufnr)
                     if l:filtype == g:neatview_settype[kc] && g:neatview_setpart[kc] == 'output'
                         call win_execute(l:winidn, 'silent wincmd J')
-                        if g:neatview_setnohi[kc] == 1
-                            call win_execute(l:winidn, 'setlocal nocursorline')
-                            call win_execute(l:winidn, 'setlocal nocursorcolumn')
-                        endif
                         break
                     endif
                 endfor
@@ -192,10 +183,6 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
                     let l:bufname = bufname(il.bufnr)
                     if l:filtype == g:neatview_settype[kc] && g:neatview_setpart[kc] == 'tab'
                         call win_execute(l:winidn, 'silent wincmd K')
-                        if g:neatview_setnohi[kc] == 1
-                            call win_execute(l:winidn, 'setlocal nocursorline')
-                            call win_execute(l:winidn, 'setlocal nocursorcolumn')
-                        endif
                         break
                     endif
                 endfor
@@ -210,10 +197,6 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
                     let l:bufname = bufname(il.bufnr)
                     if l:filtype == g:neatview_settype[kc] && g:neatview_setpart[kc] == 'tree'
                         call win_execute(l:winidn, 'silent wincmd H')
-                        if g:neatview_setnohi[kc] == 1
-                            call win_execute(l:winidn, 'setlocal nocursorline')
-                            call win_execute(l:winidn, 'setlocal nocursorcolumn')
-                        endif
                         break
                     endif
                 endfor
