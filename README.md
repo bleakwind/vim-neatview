@@ -14,7 +14,7 @@ vim-neatview is a Vim plugin designed to provide enhanced window management capa
     - Customizable window behaviors and appearances
 
 ## Screenshot
-![Viewmap Screenshot](https://github.com/bleakwind/vim-neatview/blob/main/vim-neatview.png)
+![Neatview Screenshot](https://github.com/bleakwind/vim-neatview/blob/main/vim-neatview.png)
 
 ## Requirements
 Recommended Vim 8.1+
