@@ -78,14 +78,14 @@ let g:neatview_modelist         = {"n"      : 'NORMAL',
 " neatview detail
 " g:neatview_enabled = 1
 " ============================================================================
-if exists('g:neatview_enabled') && g:neatview_enabled == 1
+if exists('g:neatview_enabled') && g:neatview_enabled ==# 1
 
     " --------------------------------------------------
     " neatview#InitStruct
     " --------------------------------------------------
     function neatview#InitStruct()
         " set show
-        let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") == ""')
+        let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") ==# ""')
         let l:winlist = getwininfo()
         for [kc, vc] in items(g:neatview_setname)
             let g:neatview_setshow[kc] = 0
@@ -96,13 +96,13 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
                 let l:filtype = getbufvar(il.bufnr, '&filetype')
                 let l:buftype = getbufvar(il.bufnr, '&buftype')
                 let l:bufname = bufname(il.bufnr)
-                if l:filtype == g:neatview_settype[kc]
+                if l:filtype ==# g:neatview_settype[kc]
                     let g:neatview_setshow[kc] = 1
                 endif
             endfor
         endfor
         " set filetype
-        let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") == ""')
+        let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") ==# ""')
         let l:winlist = getwininfo()
         for [kc, vc] in items(g:neatview_setname)
             if !empty(g:neatview_setbuff[kc])
@@ -113,16 +113,16 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
                     let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:bufname == g:neatview_setbuff[kc]
+                    if l:bufname ==# g:neatview_setbuff[kc]
                         call win_execute(l:winidn, 'set filetype='.g:neatview_settype[kc])
-                    elseif l:buftype == g:neatview_setbuff[kc]
+                    elseif l:buftype ==# g:neatview_setbuff[kc]
                         call win_execute(l:winidn, 'set filetype='.g:neatview_settype[kc])
                     endif
                 endfor
             endif
         endfor
         " set statusline
-        let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") == ""')
+        let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") ==# ""')
         let l:winlist = getwininfo()
         for il in l:winlist
             let l:bufnbr = il.bufnr
@@ -133,13 +133,13 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
             let l:bufname = bufname(il.bufnr)
             let l:searchkey = ''
             for [kc, vc] in items(g:neatview_setname)
-                if g:neatview_settype[kc] == l:filtype
+                if g:neatview_settype[kc] ==# l:filtype
                     let l:searchkey = kc
                     break
                 endif
             endfor
             if !empty(l:searchkey)
-                if g:neatview_setstat[l:searchkey] == 1
+                if g:neatview_setstat[l:searchkey] ==# 1
                     call win_execute(l:winidn, 'call neatview#StatusLine(g:neatview_setpart[l:searchkey])')
                 endif
             elseif index(l:buflist, l:bufnbr) != -1
@@ -159,7 +159,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
         if g:neatview_mainwin > 0
             let l:winidn_original = bufwinid('%')
             " check layout
-            let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") == ""')
+            let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") ==# ""')
             let l:winlist = getwininfo()
             for [kc, vc] in items(g:neatview_setname)
                 for il in l:winlist
@@ -169,7 +169,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
                     let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filtype == g:neatview_settype[kc] && g:neatview_setpart[kc] == 'info'
+                    if l:filtype ==# g:neatview_settype[kc] && g:neatview_setpart[kc] ==# 'info'
                         call win_execute(l:winidn, 'silent wincmd L')
                         break
                     endif
@@ -183,7 +183,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
                     let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filtype == g:neatview_settype[kc] && g:neatview_setpart[kc] == 'output'
+                    if l:filtype ==# g:neatview_settype[kc] && g:neatview_setpart[kc] ==# 'output'
                         call win_execute(l:winidn, 'silent wincmd J')
                         break
                     endif
@@ -197,7 +197,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
                     let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filtype == g:neatview_settype[kc] && g:neatview_setpart[kc] == 'tab'
+                    if l:filtype ==# g:neatview_settype[kc] && g:neatview_setpart[kc] ==# 'tab'
                         call win_execute(l:winidn, 'silent wincmd K')
                         break
                     endif
@@ -211,7 +211,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
                     let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filtype == g:neatview_settype[kc] && g:neatview_setpart[kc] == 'tree'
+                    if l:filtype ==# g:neatview_settype[kc] && g:neatview_setpart[kc] ==# 'tree'
                         call win_execute(l:winidn, 'silent wincmd H')
                         break
                     endif
@@ -226,7 +226,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
                     let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filtype == g:neatview_settype[kc] && g:neatview_setpart[kc] == 'info'
+                    if l:filtype ==# g:neatview_settype[kc] && g:neatview_setpart[kc] ==# 'info'
                         call win_execute(l:winidn, 'vertical resize '.g:neatview_setsize[kc])
                         break
                     endif
@@ -240,7 +240,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
                     let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filtype == g:neatview_settype[kc] && g:neatview_setpart[kc] == 'output'
+                    if l:filtype ==# g:neatview_settype[kc] && g:neatview_setpart[kc] ==# 'output'
                         call win_execute(l:winidn, 'resize '.g:neatview_setsize[kc])
                         break
                     endif
@@ -254,7 +254,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
                     let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filtype == g:neatview_settype[kc] && g:neatview_setpart[kc] == 'tab'
+                    if l:filtype ==# g:neatview_settype[kc] && g:neatview_setpart[kc] ==# 'tab'
                         call win_execute(l:winidn, 'resize '.g:neatview_setsize[kc])
                         break
                     endif
@@ -268,7 +268,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
                     let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filtype == g:neatview_settype[kc] && g:neatview_setpart[kc] == 'tree'
+                    if l:filtype ==# g:neatview_settype[kc] && g:neatview_setpart[kc] ==# 'tree'
                         call win_execute(l:winidn, 'vertical resize '.g:neatview_setsize[kc])
                         break
                     endif
@@ -283,7 +283,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
                     let l:filtype = getbufvar(il.bufnr, '&filetype')
                     let l:buftype = getbufvar(il.bufnr, '&buftype')
                     let l:bufname = bufname(il.bufnr)
-                    if l:filtype == g:neatview_settype[kc] && g:neatview_setpart[kc] == 'info'
+                    if l:filtype ==# g:neatview_settype[kc] && g:neatview_setpart[kc] ==# 'info'
                         call win_execute(l:winidn, 'vertical resize '.g:neatview_setsize[kc])
                         break
                     endif
@@ -309,29 +309,29 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
                 let l:setshow[kc] = g:neatview_setshow[kc]
             endfor
             " handle close
-            let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") == ""')
+            let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") ==# ""')
             let l:winlist = getwininfo()
             for [kc, vc] in items(g:neatview_setname)
                 if !empty(g:neatview_setcoth[a:name]) && index(g:neatview_setcoth[a:name], kc) != -1
-                    if l:setshow[kc] == 1
+                    if l:setshow[kc] ==# 1
                         silent execute g:neatview_setclse[kc]
                     endif
                 endif
             endfor
             " handle state
-            if a:ope == 'open'
+            if a:ope ==# 'open'
                 if l:setshow[a:name] != 1
                     silent execute g:neatview_setopen[a:name]
                 endif
-            elseif a:ope == 'close'
-                if l:setshow[a:name] == 1
+            elseif a:ope ==# 'close'
+                if l:setshow[a:name] ==# 1
                     silent execute g:neatview_setclse[a:name]
                 endif
             endif
             " handle restore
             for [kc, vc] in items(g:neatview_setname)
                 if !empty(g:neatview_setcoth[a:name]) && index(g:neatview_setcoth[a:name], kc) != -1
-                    if l:setshow[kc] == 1
+                    if l:setshow[kc] ==# 1
                         silent execute g:neatview_setopen[kc]
                     endif
                 endif
@@ -352,7 +352,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
         call neatview#InitStruct()
         call win_gotoid(g:neatview_mainwin)
         " clean other
-        let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") == ""')
+        let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") ==# ""')
         let l:winlist = getwininfo()
         for il in l:winlist
             let l:bufnbr = il.bufnr
@@ -363,7 +363,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
             let l:bufname = bufname(il.bufnr)
             let l:ifhave = 0
             for [kc, vc] in items(g:neatview_setname)
-                if g:neatview_settype[kc] == l:filtype
+                if g:neatview_settype[kc] ==# l:filtype
                     let l:ifhave = 1
                     break
                 endif
@@ -374,24 +374,24 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
         endfor
         " operate win
         for [kc, vc] in items(g:neatview_setname)
-            if g:neatview_setpart[kc] == 'tree'
+            if g:neatview_setpart[kc] ==# 'tree'
                 call neatview#OperateWin(kc, 'open')
                 break
             endif
         endfor
         for [kc, vc] in items(g:neatview_setname)
-            if g:neatview_setpart[kc] == 'tab'
+            if g:neatview_setpart[kc] ==# 'tab'
                 call neatview#OperateWin(kc, 'open')
                 break
             endif
         endfor
         for [kc, vc] in items(g:neatview_setname)
-            if g:neatview_setpart[kc] == 'output'
+            if g:neatview_setpart[kc] ==# 'output'
                 call neatview#OperateWin(kc, 'close')
             endif
         endfor
         for [kc, vc] in items(g:neatview_setname)
-            if g:neatview_setpart[kc] == 'info'
+            if g:neatview_setpart[kc] ==# 'info'
                 call neatview#OperateWin(kc, 'close')
             endif
         endfor
@@ -404,9 +404,9 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
         call neatview#InitStruct()
         call win_gotoid(g:neatview_mainwin)
         for [kc, vc] in items(g:neatview_setname)
-            if g:neatview_setpart[kc] == 'output'
-                if (a:type == "")
-                    if g:neatview_setshow[kc] == 0
+            if g:neatview_setpart[kc] ==# 'output'
+                if (a:type ==# "")
+                    if g:neatview_setshow[kc] ==# 0
                         call neatview#OperateWin(kc, 'open')
                     else
                         call neatview#OperateWin(kc, 'close')
@@ -425,9 +425,9 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
         call neatview#InitStruct()
         call win_gotoid(g:neatview_mainwin)
         for [kc, vc] in items(g:neatview_setname)
-            if g:neatview_setpart[kc] == 'info'
-                if (a:type == "")
-                    if g:neatview_setshow[kc] == 0
+            if g:neatview_setpart[kc] ==# 'info'
+                if (a:type ==# "")
+                    if g:neatview_setshow[kc] ==# 0
                         call neatview#OperateWin(kc, 'open')
                     else
                         call neatview#OperateWin(kc, 'close')
@@ -446,7 +446,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
         call neatview#InitStruct()
         call win_gotoid(g:neatview_mainwin)
         " clean other
-        let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") == ""')
+        let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") ==# ""')
         let l:winlist = getwininfo()
         for il in l:winlist
             let l:bufnbr = il.bufnr
@@ -457,7 +457,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
             let l:bufname = bufname(il.bufnr)
             let l:ifhave = 0
             for [kc, vc] in items(g:neatview_setname)
-                if g:neatview_settype[kc] == l:filtype
+                if g:neatview_settype[kc] ==# l:filtype
                     let l:ifhave = 1
                     break
                 endif
@@ -468,22 +468,22 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
         endfor
         " operate win
         for [kc, vc] in items(g:neatview_setname)
-            if g:neatview_setpart[kc] == 'tree'
+            if g:neatview_setpart[kc] ==# 'tree'
                 call neatview#OperateWin(kc, 'close')
             endif
         endfor
         for [kc, vc] in items(g:neatview_setname)
-            if g:neatview_setpart[kc] == 'tab'
+            if g:neatview_setpart[kc] ==# 'tab'
                 call neatview#OperateWin(kc, 'open')
             endif
         endfor
         for [kc, vc] in items(g:neatview_setname)
-            if g:neatview_setpart[kc] == 'output'
+            if g:neatview_setpart[kc] ==# 'output'
                 call neatview#OperateWin(kc, 'close')
             endif
         endfor
         for [kc, vc] in items(g:neatview_setname)
-            if g:neatview_setpart[kc] == 'info'
+            if g:neatview_setpart[kc] ==# 'info'
                 call neatview#OperateWin(kc, 'close')
             endif
         endfor
@@ -497,7 +497,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
         let l:buftype = getbufvar(bufnr('%'), '&buftype')
         let l:staname = l:filtype
         for [kc, vc] in items(g:neatview_setname)
-            if !empty(g:neatview_settype[kc]) && !empty(l:buftype) && g:neatview_settype[kc] == l:filtype
+            if !empty(g:neatview_settype[kc]) && !empty(l:buftype) && g:neatview_settype[kc] ==# l:filtype
                 let l:staname = g:neatview_setname[kc]
                 break
             endif
@@ -510,7 +510,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
     " --------------------------------------------------
     function! neatview#StatusLine(...)
         let l:stacon = a:0 > 0 ? a:1 : ''
-        if (l:stacon == 'tree')
+        if (l:stacon ==# 'tree')
             setlocal  statusline=%#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#\ [%{neatview#StatusName()}]\ %#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#%<
@@ -518,7 +518,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
             setlocal statusline+=%#NeatviewHlStatusline_0#\ %=\ %#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#\ %5.P\ %#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#
-        elseif (l:stacon == 'tab')
+        elseif (l:stacon ==# 'tab')
             setlocal  statusline=%#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#\ [%{neatview#StatusName()}]\ %#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#%<
@@ -529,7 +529,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
             setlocal statusline+=%#NeatviewHlStatusline_0#\ %=\ %#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#\ %5.P\ %#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#
-        elseif (l:stacon == 'output')
+        elseif (l:stacon ==# 'output')
             setlocal  statusline=%#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#\ [%{neatview#StatusName()}]\ %#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#%<
@@ -539,7 +539,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
             setlocal statusline+=%#NeatviewHlStatusline_0#\ %=\ %#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#\ %5.P\ %#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#
-        elseif (l:stacon == 'info')
+        elseif (l:stacon ==# 'info')
             setlocal  statusline=%#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#\ [%{neatview#StatusName()}]\ %#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#%<
@@ -547,7 +547,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
             setlocal statusline+=%#NeatviewHlStatusline_0#\ %=\ %#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#\ %5.P\ %#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#
-        elseif (l:stacon == 'main')
+        elseif (l:stacon ==# 'main')
             setlocal  statusline=%#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_1#\ %{has_key(g:neatview_modelist,mode())?g:neatview_modelist[mode()]:mode()}\ %#NeatviewHlStatusline_1#
             setlocal statusline+=%#NeatviewHlStatusline_2#\ %F\ %#NeatviewHlStatusline_2#
@@ -562,7 +562,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
             setlocal statusline+=%#NeatviewHlStatusline_0#\ %12.(%l,%c%V%)\ %#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#\ %5.P\ %#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_0#
-        elseif (l:stacon == 'other')
+        elseif (l:stacon ==# 'other')
             setlocal  statusline=%#NeatviewHlStatusline_0#
             setlocal statusline+=%#NeatviewHlStatusline_2#\ %F\ %#NeatviewHlStatusline_2#
             setlocal statusline+=%#NeatviewHlStatusline_0#%<
@@ -627,14 +627,14 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
 
         let l = (max + min) / 2.0
 
-        if delta == 0.0
+        if delta ==# 0.0
             let h = 0.0
             let s = 0.0
         else
             let s = l < 0.5 ? delta / (max + min) : delta / (2.0 - max - min)
-            if max == r
+            if max ==# r
                 let h = (g - b) / delta
-            elseif max == g
+            elseif max ==# g
                 let h = 2.0 + (b - r) / delta
             else
                 let h = 4.0 + (r - g) / delta
@@ -654,7 +654,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
         let s = s < 0.0 ? 0.0 : s > 1.0 ? 1.0 : s
         let l = l < 0.0 ? 0.0 : l > 1.0 ? 1.0 : l
 
-        if s == 0.0
+        if s ==# 0.0
             let r = l
             let g = l
             let b = l
@@ -729,7 +729,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
             let l:input_rgb = [str2nr(l:parts[0]), str2nr(l:parts[1]), str2nr(l:parts[2])]
         elseif has_key(l:color_hex, a:color)
             let l:hex = l:color_hex[a:color][1:]
-            if len(l:hex) == 3
+            if len(l:hex) ==# 3
                 let l:input_rgb = [str2nr(l:hex[0].l:hex[0], 16), str2nr(l:hex[1].l:hex[1], 16), str2nr(l:hex[2].l:hex[2], 16)]
             else
                 let l:input_rgb = [str2nr(l:hex[0:1], 16), str2nr(l:hex[2:3], 16), str2nr(l:hex[4:5], 16)]
@@ -760,7 +760,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
         let l:nearest_color = 'Black'
         for [l:color_name, l:hex] in items(l:color_hex)
             let l:palette_hex = l:hex[1:]
-            if len(l:palette_hex) == 3
+            if len(l:palette_hex) ==# 3
                 let l:palette_rgb = [ str2nr(l:palette_hex[0].l:palette_hex[0], 16), str2nr(l:palette_hex[1].l:palette_hex[1], 16), str2nr(l:palette_hex[2].l:palette_hex[2], 16)]
             else
                 let l:palette_rgb = [ str2nr(l:palette_hex[0:1], 16), str2nr(l:palette_hex[2:3], 16), str2nr(l:palette_hex[4:5], 16)]
@@ -793,15 +793,15 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
     function! neatview#SetHlcolor() abort
         " check bgcolor
         let l:gbg = !empty(synIDattr(hlID('StatusLine'), 'bg', 'gui'))   ? synIDattr(hlID('StatusLine'), 'bg', 'gui')   : '#171C22'
-        let l:hlstatusline_0     = neatview#ColorBgtype(l:gbg) == "White" ? neatview#ColorInvert(g:neatview_hlstatusline_0) : g:neatview_hlstatusline_0
-        let l:hlstatusline_1     = neatview#ColorBgtype(l:gbg) == "White" ? neatview#ColorInvert(g:neatview_hlstatusline_1) : g:neatview_hlstatusline_1
-        let l:hlstatusline_2     = neatview#ColorBgtype(l:gbg) == "White" ? neatview#ColorInvert(g:neatview_hlstatusline_2) : g:neatview_hlstatusline_2
-        let l:hlstatusline_3     = neatview#ColorBgtype(l:gbg) == "White" ? neatview#ColorInvert(g:neatview_hlstatusline_3) : g:neatview_hlstatusline_3
-        let l:hlstatusline_4     = neatview#ColorBgtype(l:gbg) == "White" ? neatview#ColorInvert(g:neatview_hlstatusline_4) : g:neatview_hlstatusline_4
-        let l:hlstatusline_5     = neatview#ColorBgtype(l:gbg) == "White" ? neatview#ColorInvert(g:neatview_hlstatusline_5) : g:neatview_hlstatusline_5
-        let l:hlstatusline_6     = neatview#ColorBgtype(l:gbg) == "White" ? neatview#ColorInvert(g:neatview_hlstatusline_6) : g:neatview_hlstatusline_6
-        let l:hlstatusline_7     = neatview#ColorBgtype(l:gbg) == "White" ? neatview#ColorInvert(g:neatview_hlstatusline_7) : g:neatview_hlstatusline_7
-        let l:hlstatusline_8     = neatview#ColorBgtype(l:gbg) == "White" ? neatview#ColorInvert(g:neatview_hlstatusline_8) : g:neatview_hlstatusline_8
+        let l:hlstatusline_0     = neatview#ColorBgtype(l:gbg) ==# "White" ? neatview#ColorInvert(g:neatview_hlstatusline_0) : g:neatview_hlstatusline_0
+        let l:hlstatusline_1     = neatview#ColorBgtype(l:gbg) ==# "White" ? neatview#ColorInvert(g:neatview_hlstatusline_1) : g:neatview_hlstatusline_1
+        let l:hlstatusline_2     = neatview#ColorBgtype(l:gbg) ==# "White" ? neatview#ColorInvert(g:neatview_hlstatusline_2) : g:neatview_hlstatusline_2
+        let l:hlstatusline_3     = neatview#ColorBgtype(l:gbg) ==# "White" ? neatview#ColorInvert(g:neatview_hlstatusline_3) : g:neatview_hlstatusline_3
+        let l:hlstatusline_4     = neatview#ColorBgtype(l:gbg) ==# "White" ? neatview#ColorInvert(g:neatview_hlstatusline_4) : g:neatview_hlstatusline_4
+        let l:hlstatusline_5     = neatview#ColorBgtype(l:gbg) ==# "White" ? neatview#ColorInvert(g:neatview_hlstatusline_5) : g:neatview_hlstatusline_5
+        let l:hlstatusline_6     = neatview#ColorBgtype(l:gbg) ==# "White" ? neatview#ColorInvert(g:neatview_hlstatusline_6) : g:neatview_hlstatusline_6
+        let l:hlstatusline_7     = neatview#ColorBgtype(l:gbg) ==# "White" ? neatview#ColorInvert(g:neatview_hlstatusline_7) : g:neatview_hlstatusline_7
+        let l:hlstatusline_8     = neatview#ColorBgtype(l:gbg) ==# "White" ? neatview#ColorInvert(g:neatview_hlstatusline_8) : g:neatview_hlstatusline_8
 
         " hl statusline
         execute 'hi! NeatviewHlStatusline_0 ctermfg='.neatview#ColorName(l:hlstatusline_0).' ctermbg='.neatview#ColorName(l:gbg).' cterm=NONE guifg='.l:hlstatusline_0.' guibg='.l:gbg.' gui=NONE'
@@ -832,7 +832,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled == 1
         autocmd WinNew,VimResized * call neatview#ResizeWin()
         autocmd ColorScheme * call neatview#SetHlcolor()
         autocmd VimEnter * call neatview#SetHlcolor()
-        if g:neatview_autostart == 1
+        if g:neatview_autostart ==# 1
             autocmd VimEnter * call timer_start(0, {-> execute(g:neatview_initfun, '')})
         endif
     augroup END
