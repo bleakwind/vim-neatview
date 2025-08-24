@@ -815,11 +815,11 @@ if exists('g:neatview_enabled') && g:neatview_enabled ==# 1
         execute 'hi! NeatviewHlStatusline_8 ctermfg='.neatview#ColorName(l:hlstatusline_8).' ctermbg='.neatview#ColorName(l:gbg).' cterm=NONE guifg='.l:hlstatusline_8.' guibg='.l:gbg.' gui=NONE'
 
         " prompt message
-        hi! NeatviewPmtDefault ctermfg=Gray   ctermbg=NONE cterm=Bold guifg=#B1B3B8 guibg=NONE gui=Bold
-        hi! NeatviewPmtNormal  ctermfg=Blue   ctermbg=NONE cterm=Bold guifg=#79BBFF guibg=NONE gui=Bold
-        hi! NeatviewPmtSuccess ctermfg=Green  ctermbg=NONE cterm=Bold guifg=#95D475 guibg=NONE gui=Bold
-        hi! NeatviewPmtWarning ctermfg=Yellow ctermbg=NONE cterm=Bold guifg=#EEBE77 guibg=NONE gui=Bold
-        hi! NeatviewPmtError   ctermfg=Red    ctermbg=NONE cterm=Bold guifg=#F56C6C guibg=NONE gui=Bold
+        hi! NeatviewPmtDef ctermfg=Gray   ctermbg=NONE cterm=Bold guifg=#B1B3B8 guibg=NONE gui=Bold
+        hi! NeatviewPmtNor ctermfg=Blue   ctermbg=NONE cterm=Bold guifg=#79BBFF guibg=NONE gui=Bold
+        hi! NeatviewPmtSuc ctermfg=Green  ctermbg=NONE cterm=Bold guifg=#95D475 guibg=NONE gui=Bold
+        hi! NeatviewPmtWar ctermfg=Yellow ctermbg=NONE cterm=Bold guifg=#EEBE77 guibg=NONE gui=Bold
+        hi! NeatviewPmtErr ctermfg=Red    ctermbg=NONE cterm=Bold guifg=#F56C6C guibg=NONE gui=Bold
     endfunction
 
     " --------------------------------------------------
