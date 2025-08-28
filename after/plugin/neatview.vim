@@ -28,7 +28,7 @@ set cpoptions&vim
 " public setting - [g:neatview_initfun:neatview#StructTree()|neatview#StructClear()]
 let g:neatview_enabled          = get(g:, 'neatview_enabled', 0)
 let g:neatview_autostart        = get(g:, 'neatview_autostart', 0)
-let g:neatview_initfun          = get(g:, 'neatview_initfun', 'NeatviewStructTree')
+let g:neatview_initfun          = get(g:, 'neatview_initfun', 'neatview#StructTree()')
 
 " controlled plugin
 let g:neatview_setname          = get(g:, 'neatview_setname', {})
@@ -833,7 +833,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled ==# 1
         autocmd ColorScheme * call neatview#SetHlcolor()
         autocmd VimEnter * call neatview#SetHlcolor()
         if g:neatview_autostart ==# 1
-            autocmd VimEnter * call timer_start(0, {-> execute(g:neatview_initfun, '')})
+            autocmd VimEnter * call timer_start(0, {-> call(g:neatview_initfun, [])})
         endif
     augroup END
 
