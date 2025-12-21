@@ -174,7 +174,6 @@ if exists('g:neatview_enabled') && g:neatview_enabled ==# 1
             let l:basic_winlst = {}
             let l:basic_winidl = filter(map(range(1, winnr('$')), 'win_getid(v:val)'), '!filelist#IsSpecial(winbufnr(win_id2win(v:val)))')
             for ix in range(len(l:basic_winidl))
-                let l:iflast = ix == (len(l:basic_winidl) - 1)
                 let l:winidn = l:basic_winidl[ix]
                 let l:winnr = win_id2win(l:winidn)
                 let l:width = winwidth(l:winnr)
@@ -315,7 +314,7 @@ if exists('g:neatview_enabled') && g:neatview_enabled ==# 1
             for ix in range(len(l:basic_winidl))
                 let l:iflast = ix == (len(l:basic_winidl) - 1)
                 let l:winidn = l:basic_winidl[ix]
-                if !l:iflast && has_key(l:basic_winlst, l:winidn)
+                if win_id2win(l:winidn) > 0 && has_key(l:basic_winlst, l:winidn) && !l:iflast
                     call win_execute(l:winidn, 'vertical resize '.l:basic_winlst[l:winidn])
                 endif
             endfor
