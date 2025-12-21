@@ -81,6 +81,18 @@ let g:neatview_modelist         = {"n"      : 'NORMAL',
 if exists('g:neatview_enabled') && g:neatview_enabled ==# 1
 
     " --------------------------------------------------
+    " neatview#IsSpecial
+    " --------------------------------------------------
+    function! neatview#IsSpecial(...) abort
+        let l:ret = 0
+        if a:0 > 0
+            let l:buftype = getbufvar(a:1, '&buftype')
+            let l:ret = l:buftype != '' && l:buftype != 'help' ? 1 : 0
+        endif
+        return l:ret
+    endfunction
+
+    " --------------------------------------------------
     " neatview#InitStruct
     " --------------------------------------------------
     function neatview#InitStruct()
@@ -158,6 +170,16 @@ if exists('g:neatview_enabled') && g:neatview_enabled ==# 1
         call neatview#InitStruct()
         if g:neatview_mainwin > 0
             let l:winidn_original = bufwinid('%')
+            " save multwin
+            let l:basic_winlst = {}
+            let l:basic_winidl = filter(map(range(1, winnr('$')), 'win_getid(v:val)'), '!filelist#IsSpecial(winbufnr(win_id2win(v:val)))')
+            for ix in range(len(l:basic_winidl))
+                let l:iflast = ix == (len(l:basic_winidl) - 1)
+                let l:winidn = l:basic_winidl[ix]
+                let l:winnr = win_id2win(l:winidn)
+                let l:width = winwidth(l:winnr)
+                let l:basic_winlst[l:winidn] = l:width
+            endfor
             " check layout
             let l:buflist = filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&buftype") ==# ""')
             let l:winlist = getwininfo()
@@ -288,6 +310,14 @@ if exists('g:neatview_enabled') && g:neatview_enabled ==# 1
                         break
                     endif
                 endfor
+            endfor
+            " resize multwin
+            for ix in range(len(l:basic_winidl))
+                let l:iflast = ix == (len(l:basic_winidl) - 1)
+                let l:winidn = l:basic_winidl[ix]
+                if !l:iflast && has_key(l:basic_winlst, l:winidn)
+                    call win_execute(l:winidn, 'vertical resize '.l:basic_winlst[l:winidn])
+                endif
             endfor
             " back winid
             if l:winidn_original != bufwinid('%')
@@ -852,3 +882,4 @@ endif
 " ============================================================================
 let &cpoptions = s:save_cpo
 unlet s:save_cpo
+
