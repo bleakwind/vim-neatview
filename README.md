@@ -122,7 +122,7 @@ let g:neatview_setclse['quickfix']          = 'cclose'
 let g:neatview_setstat['quickfix']          = 1
 let g:neatview_setshow['quickfix']          = 0
 
-let g:neatview_setname['viewmap']           = 'Codemap'
+let g:neatview_setname['viewmap']           = 'Viewmap'
 let g:neatview_settype['viewmap']           = 'viewmap'
 let g:neatview_setpart['viewmap']           = 'info'
 let g:neatview_setbuff['viewmap']           = 'vim-viewmap'
@@ -152,3 +152,4 @@ For example, I would like map these:
 
 ## License
 BSD 2-Clause - See LICENSE file
+
