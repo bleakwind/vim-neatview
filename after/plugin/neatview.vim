@@ -1,15 +1,15 @@
-" vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
+"  vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4: */
 "
-" +--------------------------------------------------------------------------+
-" | $Id: neatview.vim 2025-07-18 02:30:17 Bleakwind Exp $                    |
-" +--------------------------------------------------------------------------+
-" | Copyright (c) 2008-2025 Bleakwind(Rick Wu).                              |
-" +--------------------------------------------------------------------------+
-" | This source file is neatview.vim.                                        |
-" | This source file is release under BSD license.                           |
-" +--------------------------------------------------------------------------+
-" | Author: Bleakwind(Rick Wu) <bleakwind@qq.com>                            |
-" +--------------------------------------------------------------------------+
+"  +-------------------------------------------------------------------------+
+"  | $Id: neatview.vim 2026-03-13 18:05:13 Bleakwind Exp $                   |
+"  +-------------------------------------------------------------------------+
+"  | Copyright (c) 2008-2026 Bleakwind(Rick Wu).                             |
+"  +-------------------------------------------------------------------------+
+"  | This source file is neatview.vim.                                       |
+"  | This source file is release under BSD license.                          |
+"  +-------------------------------------------------------------------------+
+"  | Author: Bleakwind(Rick Wu) <bleakwind@qq.com>                           |
+"  +-------------------------------------------------------------------------+
 "
 
 if exists('g:neatview_plugin') || &compatible
